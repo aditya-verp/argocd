@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: myapp
-  replicas: 2
+  replicas: 3
   template:
     metadata:
       labels:
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: postgres:latest
+        image: argoproj/rollouts-demo:blue
         ports:
-        - containerPort: 5433
+        - containerPort: 8080
 
