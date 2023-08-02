@@ -1,12 +1,12 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
-  name: myapp
+  name: my-app-canary
 spec:
   selector:
     matchLabels:
       app: myapp
-  replicas: 10
+  replicas: 7
   template:
     metadata:
       labels:
@@ -17,4 +17,12 @@ spec:
         image: argoproj/rollouts-demo:blue
         ports:
         - containerPort: 8080
+    strategy:
+    canary:
+      steps:
+      - setWeight: 30
+      - pause: {}
+      - setWeight: 50
+      - pause: {}
+      - setWeight: 100
 
