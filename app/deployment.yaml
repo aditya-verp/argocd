@@ -17,7 +17,7 @@ spec:
         image: argoproj/rollouts-demo:blue
         ports:
         - containerPort: 8080
-    strategy:
+  strategy:
     canary:
       steps:
       - setWeight: 30
