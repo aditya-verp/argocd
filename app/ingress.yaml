@@ -1,9 +1,9 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: myapp
+  name: myapp-traefik
   labels:
-    app: myapp
+    app: myapp-traefik
 spec:
   entryPoints:
     - web
