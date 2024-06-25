@@ -4,6 +4,8 @@ metadata:
   name: myapp-traefik
   labels:
     app: myapp-traefik
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
 spec:
   entryPoints:
     - web
