@@ -2,12 +2,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   name: my-app-canary
-  annotations:
-    notifications.argoproj.io/subscribe.on-sync-succeeded.teams: "ArgoCD"
-    notifications.argoproj.io/subscribe.on-sync-failed.teams: "ArgoCD"
-    notifications.argoproj.io/subscribe.on-health-degraded.teams: "ArgoCD"
-    notifications.argoproj.io/subscribe.on-deployed.teams: "ArgoCD"
+  # annotations:
+  #   notifications.argoproj.io/subscribe.on-sync-succeeded.teams: "ArgoCD"
+  #   notifications.argoproj.io/subscribe.on-sync-failed.teams: "ArgoCD"
+  #   notifications.argoproj.io/subscribe.on-health-degraded.teams: "ArgoCD"
+  #   notifications.argoproj.io/subscribe.on-deployed.teams: "ArgoCD"
 spec:
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: myapp
@@ -24,6 +25,20 @@ spec:
         - containerPort: 8080
   strategy:
     canary:
+      dynamicStableScale: true
+      canaryService: myapp}-canary
+      canaryMetadata: 
+        annotations: {}
+        labels: 
+          app: myapp
+      stableService: myapp
+      stableMetadata: 
+        annotations: {}
+        labels: 
+          app: myapp
+      trafficRouting:
+        traefik:
+          weightedTraefikServiceName: myapp-traefik
       steps:
       - setWeight: 30
       - pause: {}
