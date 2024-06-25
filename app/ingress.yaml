@@ -7,7 +7,6 @@ metadata:
 spec:
   entryPoints:
     - web
-    - websecure
   routes:
     - kind: Rule
       match: Host(`test.com`) && PathPrefix(`/`)
@@ -17,5 +16,5 @@ spec:
       services:
         - name: myapp
           port: 8080
-  tls:
-    certResolver: default
+  # tls:
+  #   certResolver: default
