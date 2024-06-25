@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: myapp
+  labels:
+    app: myapp
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`test.com`) && PathPrefix(`/`)
+     # middlewares:
+        #- name: traefik-real-ip
+        # - name: ip-whitelist
+      services:
+        - name: myapp
+          port: 8080
+  tls:
+    certResolver: default
