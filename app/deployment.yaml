@@ -34,6 +34,19 @@ spec:
             routes:
             - primary
       steps:
+      - experiment:
+          duration: 5m
+          templates:
+          - name: myapp-canary-preview
+            specRef: canary
+            service: 
+              name: myapp-canary-preview
+            selector:
+              matchLabels: 
+                app: myapp-canary-preview
+            metadata:
+              labels:
+                app: myapp-canary-preview
       - setWeight: 30
       - pause: {duration: 3}
       - setWeight: 50
