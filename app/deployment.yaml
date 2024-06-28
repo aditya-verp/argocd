@@ -36,11 +36,12 @@ spec:
         annotations: {}
         labels: 
           app: myapp
-      istio:
-        virtualService:
-          name: my-virtualservice-argo   # required
-          routes:
-          - primary
+      trafficRouting:
+        istio:
+          virtualService:
+            name: my-virtualservice-argo   # required
+            routes:
+            - primary
       steps:
       - setWeight: 30
       - pause: {}
