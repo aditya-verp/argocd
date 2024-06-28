@@ -23,7 +23,8 @@ spec:
   gateways:
   - gatewaytest-argocd
   http:
-  - match:
+  - name: primary
+    match:
     - uri:
         prefix: "/adi5"
     route:
@@ -31,3 +32,13 @@ spec:
         host: myapp
         port:
           number: 8080
+  - name: canary
+    match:
+    - uri:
+        prefix: "/adi5-canary"
+    route:
+    - destination:
+        host: myapp-canary
+        port:
+          number: 8080
+
