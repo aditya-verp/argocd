@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: argoproj/rollouts-demo:blue
+        image: argoproj/rollouts-demo:red
         ports:
         - containerPort: 8080
   strategy:
@@ -35,8 +35,8 @@ spec:
             - primary
       steps:
       - setWeight: 30
-      - pause: {duration: 1}
+      - pause: {duration: 3}
       - setWeight: 50
-      - pause: {duration: 1}
+      - pause: {duration: 3}
       - setWeight: 100
 
