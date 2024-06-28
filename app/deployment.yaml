@@ -25,21 +25,12 @@ spec:
         - containerPort: 8080
   strategy:
     canary:
-      dynamicStableScale: true
       canaryService: myapp-canary
-      canaryMetadata: 
-        annotations: {}
-        labels: 
-          app: myapp
       stableService: myapp
-      stableMetadata: 
-        annotations: {}
-        labels: 
-          app: myapp
       trafficRouting:
         istio:
           virtualService:
-            name: my-virtualservice-argo   # required
+            name: my-virtualservice-argo
             routes:
             - primary
       steps:
