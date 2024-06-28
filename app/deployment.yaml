@@ -38,7 +38,7 @@ spec:
           app: myapp
       istio:
         virtualService:
-          name: istio-service   # required
+          name: my-virtualservice-argo   # required
           routes:
           - primary
       steps:
