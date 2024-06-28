@@ -35,10 +35,8 @@ spec:
             - primary
       steps:
       - setWeight: 30
-      - pause:
-          duration: 2m
+      - pause: {duration: 1}
       - setWeight: 50
-      - pause:
-          duration: 2m
+      - pause: {duration: 1}
       - setWeight: 100
 
