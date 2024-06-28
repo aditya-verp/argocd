@@ -27,12 +27,12 @@ spec:
     route:
     - destination:
         host: myapp
-        # port:
-        #   number: 8080
+        port:
+          number: 8080
       weight: 100
     - destination:
         host: myapp-canary
-        # port:
-        #   number: 8080
+        port:
+          number: 8080
       weight: 0
 
