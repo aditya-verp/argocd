@@ -35,7 +35,7 @@ spec:
   - name: canary
     match:
     - uri:
-        prefix: "/adi5-canary"
+        prefix: "/adi5"
     route:
     - destination:
         host: myapp-canary
