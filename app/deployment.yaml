@@ -36,9 +36,11 @@ spec:
         annotations: {}
         labels: 
           app: myapp
-      trafficRouting:
-        traefik:
-          weightedTraefikServiceName: myapp-traefik
+      istio:
+        virtualService:
+          name: istio-service   # required
+          routes:
+          - primary
       steps:
       - setWeight: 30
       - pause: {}
