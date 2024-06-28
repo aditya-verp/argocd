@@ -23,20 +23,3 @@ spec:
     targetPort: 8080
   selector:
     app: myapp
----
-apiVersion: traefik.io/v1alpha1
-kind: TraefikService
-metadata:
-  labels:
-    app: myapp-traefik
-  name: myapp-traefik
-  # annotations:
-  #   traefik.ingress.kubernetes.io/router.entrypoints: websecure
-  #   traefik.ingress.kubernetes.io/router.tls: "false"
-spec:
-  weighted:
-    services:
-      - name: myapp # k8s service name that you need to create for stable application version
-        port: 8080
-      - name: myapp-canary # k8s service name that you need to create for new application version
-        port: 8080
