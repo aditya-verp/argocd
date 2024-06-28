@@ -1,22 +1,33 @@
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
 metadata:
-  name: myapp-traefik
-  labels:
-    app: myapp-traefik
-  annotations:
-    kubernetes.io/ingress.class: "traefik"
+  name: gatewaytest-argocd
 spec:
-  entryPoints:
-    - web
-  routes:
-    - kind: Rule
-      match: Host(`test.com`) && PathPrefix(`/`)
-     # middlewares:
-        #- name: traefik-real-ip
-        # - name: ip-whitelist
-      services:
-        - name: myapp
-          port: 8080
-  # tls:
-  #   certResolver: default
+  selector:
+    istio: ingress
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "payment-staging-experiment-api.bansira.com"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: my-virtualservice-argo
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - gatewaytest-argocd
+  http:
+  - match:
+    - uri:
+        prefix: "/adi5"
+    route:
+    - destination:
+        host: myapp
+        port:
+          number: 8080
