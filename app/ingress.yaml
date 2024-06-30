@@ -19,11 +19,14 @@ metadata:
   name: my-virtualservice-argo
 spec:
   hosts:
-  - "*"
+  - "payment-staging-experiment-api.bansira.com"
   gateways:
   - gatewaytest-argocd
   http:
   - name: primary
+    match:
+    - uri:
+        prefix: "/"
     route:
     - destination:
         host: myapp
@@ -35,4 +38,5 @@ spec:
         port:
           number: 8080
       weight: 0
+
 
