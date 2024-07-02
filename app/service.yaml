@@ -8,7 +8,7 @@ spec:
   ports:
   - port: 8080
     protocol: TCP
-    targetPort: 8080
+    targetPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -20,7 +20,7 @@ spec:
   ports:
   - port: 8080
     protocol: TCP
-    targetPort: 8080
+    targetPort: 80
   selector:
     app: myapp
 ---
@@ -34,6 +34,6 @@ spec:
   ports:
   - port: 8080
     protocol: TCP
-    targetPort: 8080
+    targetPort: 80
   selector:
     app: myapp-canary-preview
