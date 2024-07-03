@@ -31,8 +31,6 @@ spec:
         istio:
           virtualService:
             name: my-virtualservice-argo
-            routes:
-            - primary
       steps:
       # - experiment:
       #     duration: 5m
