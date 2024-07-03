@@ -1,42 +1,62 @@
-apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
-metadata:
-  name: gatewaytest-argocd
-spec:
-  selector:
-    istio: ingress
-  servers:
-  - port:
-      number: 80
-      name: http
-      protocol: HTTP
-    hosts:
-    - "payment-staging-experiment-api.bansira.com"
+# apiVersion: networking.istio.io/v1alpha3
+# kind: Gateway
+# metadata:
+#   name: gatewaytest-argocd
+# spec:
+#   selector:
+#     istio: ingress
+#   servers:
+#   - port:
+#       number: 80
+#       name: http
+#       protocol: HTTP
+#     hosts:
+#     - "payment-staging-experiment-api.bansira.com"
+# ---
+# apiVersion: networking.istio.io/v1alpha3
+# kind: VirtualService
+# metadata:
+#   name: my-virtualservice-argo
+# spec:
+#   hosts:
+#   - "payment-staging-experiment-api.bansira.com"
+#   gateways:
+#   - gatewaytest-argocd
+#   http:
+#   - name: primary
+#     match:
+#     - uri:
+#         prefix: "/addi/1"
+#     route:
+#     - destination:
+#         host: myapp
+#         port:
+#           number: 8080
+#       weight: 100
+#     - destination:
+#         host: myapp-canary
+#         port:
+#           number: 8080
+#       weight: 0
+
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: my-virtualservice-argo
 spec:
-  hosts:
-  - "payment-staging-experiment-api.bansira.com"
-  gateways:
-  - gatewaytest-argocd
+  hosts: 
+  - myapp.test.svc.cluster.local"
   http:
-  - name: primary
-    match:
-    - uri:
-        prefix: "/addi/1"
-    route:
-    - destination:
-        host: myapp
-        port:
-          number: 8080
-      weight: 100
-    - destination:
-        host: myapp-canary
-        port:
-          number: 8080
-      weight: 0
-
+    - route:
+      - destination:
+          host: myapp
+          port:
+            number: 8080
+          weight: 100
+      - destination:
+          host: myapp-canary
+          port:
+            number: 8080
+          weight: 0
 
