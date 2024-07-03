@@ -46,7 +46,7 @@ metadata:
   name: my-virtualservice-argo
 spec:
   hosts: 
-  - bansira.com"
+  - "bansira.com"
   http:
     - route:
       - destination:
