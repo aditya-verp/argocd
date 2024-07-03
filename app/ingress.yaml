@@ -46,7 +46,7 @@ metadata:
   name: my-virtualservice-argo
 spec:
   hosts: 
-  - myapp.test.svc.cluster.local"
+  - bansira.com"
   http:
     - route:
       - destination:
