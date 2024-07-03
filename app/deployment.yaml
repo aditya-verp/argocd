@@ -1,53 +1,73 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Rollout
+# apiVersion: argoproj.io/v1alpha1
+# kind: Rollout
+# metadata:
+#   name: my-app-canary
+#   # annotations:
+#   #   notifications.argoproj.io/subscribe.on-sync-succeeded.teams: "ArgoCD"
+#   #   notifications.argoproj.io/subscribe.on-sync-failed.teams: "ArgoCD"
+#   #   notifications.argoproj.io/subscribe.on-health-degraded.teams: "ArgoCD"
+#   #   notifications.argoproj.io/subscribe.on-deployed.teams: "ArgoCD"
+# spec:
+#   revisionHistoryLimit: 1
+#   selector:
+#     matchLabels:
+#       app: myapp
+#   replicas: 5
+#   template:
+#     metadata:
+#       labels:
+#         app: myapp
+#     spec:
+#       containers:
+#       - name: myapp
+#         image: containous/whoami
+#         ports:
+#         - containerPort: 80
+#   strategy:
+#     canary:
+#       canaryService: myapp-canary
+#       stableService: myapp
+#       trafficRouting:
+#         istio:
+#           virtualService:
+#             name: my-virtualservice-argo
+#       steps:
+#       # - experiment:
+#       #     duration: 5m
+#       #     templates:
+#       #     - name: myapp-canary-preview
+#       #       specRef: canary
+#       #       service: 
+#       #         name: myapp-canary-preview
+#       #       selector:
+#       #         matchLabels: 
+#       #           app: myapp-canary-preview
+#       #       metadata:
+#       #         labels:
+#       #           app: myapp-canary-preview
+#       - setWeight: 30
+#       - pause: {duration: 3}
+#       - setWeight: 50
+#       - pause: {duration: 3}
+#       - setWeight: 100
+---
+
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: my-app-canary
-  # annotations:
-  #   notifications.argoproj.io/subscribe.on-sync-succeeded.teams: "ArgoCD"
-  #   notifications.argoproj.io/subscribe.on-sync-failed.teams: "ArgoCD"
-  #   notifications.argoproj.io/subscribe.on-health-degraded.teams: "ArgoCD"
-  #   notifications.argoproj.io/subscribe.on-deployed.teams: "ArgoCD"
+  name: myapp
 spec:
-  revisionHistoryLimit: 1
+  replicas: 1
   selector:
     matchLabels:
       app: myapp
-  replicas: 5
   template:
     metadata:
       labels:
         app: myapp
     spec:
       containers:
-      - name: myapp
-        image: containous/whoami
-        ports:
-        - containerPort: 80
-  strategy:
-    canary:
-      canaryService: myapp-canary
-      stableService: myapp
-      trafficRouting:
-        istio:
-          virtualService:
-            name: my-virtualservice-argo
-      steps:
-      # - experiment:
-      #     duration: 5m
-      #     templates:
-      #     - name: myapp-canary-preview
-      #       specRef: canary
-      #       service: 
-      #         name: myapp-canary-preview
-      #       selector:
-      #         matchLabels: 
-      #           app: myapp-canary-preview
-      #       metadata:
-      #         labels:
-      #           app: myapp-canary-preview
-      - setWeight: 30
-      - pause: {duration: 3}
-      - setWeight: 50
-      - pause: {duration: 3}
-      - setWeight: 100
-
+        - name: myapp
+          image: containous/whoami
+          ports:
+            - containerPort: 80
